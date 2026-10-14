@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acessos • Presente Minha Musa</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#fff9fc;color:#584a61}
+.card{width:min(520px,100%);padding:30px;border:1px solid #eadff0;border-radius:28px;background:#fff;text-align:center}
+.badge{display:inline-block;padding:8px 12px;border:1px solid #eadff0;border-radius:999px;font-size:11px;font-weight:900;color:#8d7397}
+h1{color:#775586;margin:18px 0 8px}
+.number{font-size:72px;font-weight:1000;color:#775586;line-height:1;margin:22px 0 8px}
+p{line-height:1.5}
+button{border:0;border-radius:999px;padding:14px 22px;background:linear-gradient(135deg,#bea7ff,#ffb9d5);color:white;font-weight:900;cursor:pointer;margin-top:12px}
+.small{font-size:12px;opacity:.65;margin-top:18px}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="badge">PAINEL APS • PRESENTE MINHA MUSA</div>
+  <h1>Acessos registrados</h1>
+  <div class="number" id="count">…</div>
+  <p id="status">Consultando contador.</p>
+  <button type="button" id="refresh">ATUALIZAR</button>
+  <div class="small">Conta aberturas do presente a partir da instalação do contador. Recarregar o presente também soma uma visita.</div>
+</main>
+<script>
+(() => {
+  const el=document.getElementById('count');
+  const status=document.getElementById('status');
+  async function load(){
+    status.textContent='Consultando contador.';
+    try{
+      const r=await fetch('https://countapi.mileshilliard.com/api/v1/get/aps_musa_2026_9f3c7a1b',{cache:'no-store'});
+      const d=await r.json();
+      el.textContent=String(d.value ?? 0);
+      status.textContent='Total de aberturas registradas.';
+    }catch(e){
+      el.textContent='—';
+      status.textContent='Não foi possível consultar agora.';
+    }
+  }
+  document.getElementById('refresh').addEventListener('click',load);
+  load();
+})();
+</script>
+</body>
+</html>
