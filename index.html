@@ -147,19 +147,6 @@ p{font-size:16px;line-height:1.55;margin:.7em 0}.soft{opacity:.68}
 })();
 </script>
 
-<script>
-(() => {
-  try {
-    const params = new URLSearchParams(location.search);
-    if (params.get('preview') === '1') return;
-    fetch('https://countapi.mileshilliard.com/api/v1/hit/aps_musa_2026_9f3c7a1b', {
-      method: 'GET',
-      mode: 'cors',
-      cache: 'no-store'
-    }).catch(() => {});
-  } catch (_) {}
-})();
-</script>
 
 </body>
 </html>
